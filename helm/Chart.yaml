@@ -1,6 +1,6 @@
 apiVersion: v2
 name: wforce
-description: PowerDNS weakforced as the auth policy server of the sandbox, shared by yarilo and Dovecot so both are judged by the same policy.
+description: PowerDNS weakforced as the auth policy server of the sandbox mail servers, logging every request body field by field.
 type: application
 version: 0.1.0
 appVersion: "v3.2.0"

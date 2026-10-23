@@ -1,5 +1,4 @@
-## Sandbox (ihorru-sbox-nc): release wforce in namespace wforce, reached by
-## yarilo-auth in yarilo-sb and by Dovecot in dovecot as
-## http://wforce.wforce.svc.cluster.local:8084/.
+## Sandbox (ihorru-sbox-nc): release wforce in namespace wforce, reached by the
+## mail servers in the cluster as http://wforce.wforce.svc.cluster.local:8084/.
 policy:
   logRequests: true
