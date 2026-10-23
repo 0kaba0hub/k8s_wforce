@@ -1,12 +1,10 @@
 # k8s_wforce
 
 Helm chart deploying [PowerDNS weakforced](https://github.com/PowerDNS/weakforced)
-into the sandbox Kubernetes cluster as the auth policy server, shared by the
-[yarilo](https://github.com/yarilomail/yarilo) sandbox (`yarilo-sb`) and the
-reference Dovecot ([k8s_dovecot](https://github.com/0kaba0hub/k8s_dovecot)),
-so the same login is judged by the same policy and the two request bodies
-can be compared in one log. Used for yarilo#2317 (parity with Dovecot 2.4
-`auth_policy`).
+into the sandbox Kubernetes cluster as the auth policy server for the mail
+servers there. Every server pointed at it is judged by the same policy, and
+each request body is logged field by field, so what two senders put in a body
+for the same login can be compared in one log.
 
 Not a production deployment: single replica, no replication, no TLS on the
 API (cluster-internal only).
@@ -41,8 +39,8 @@ helm upgrade --install wforce helm -n wforce \
   -f helm_values/values-sandbox.yaml
 ```
 
-A client reads the password from the same Secret, e.g. for yarilo's
-`auth_policy_server_api_header` (`Authorization: Basic base64(wforce:<password>)`).
+A client reads the password from the same Secret and sends it as HTTP basic
+auth (`Authorization: Basic base64(wforce:<password>)`).
 
 ## Values
 
