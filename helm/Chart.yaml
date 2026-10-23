@@ -2,5 +2,5 @@ apiVersion: v2
 name: wforce
 description: PowerDNS weakforced as the auth policy server of the sandbox mail servers, logging every request body field by field.
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "v3.2.0"
