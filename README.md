@@ -19,7 +19,7 @@ API (cluster-internal only).
   per IP. `report` feeds the counts from failed logins.
 - With `policy.logRequests`, every `allow` and `report` logs every field it
   received (`login`, `remote`, `pwhash`, `protocol`, `tls`, `device_id`,
-  `session_id`, `success`, `policy_reject`, `attrs`): what a sender put in
+  `session_id`, `fail_type`, `success`, `policy_reject`, `attrs`): what a sender put in
   the body is read from `kubectl -n wforce logs deploy/wforce`.
 - The API listens on `:8084`, behind Service `wforce`; wforce's ACL admits the
   private ranges by default (`acl` narrows it).
