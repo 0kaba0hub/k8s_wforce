@@ -18,8 +18,8 @@ existingSecret:
 ## private IPv4/IPv6 ranges.
 acl: []
 
-## The policy: different failed passwords counted per IP and per IP+login
-## over a one-hour window of six 10-minute slots.
+## The policy: different failed passwords counted per IP, per IP+login and
+## per login over a one-hour window of six 10-minute slots.
 policy:
   ## allow returns this tarpit (seconds) past tarpitAfter per IP+login.
   tarpitAfter: 3
@@ -27,6 +27,10 @@ policy:
   ## allow refuses past refuseAfter per IP, with this message for the client.
   refuseAfter: 50
   refuseMessage: "Too many failed logins, try again later"
+  ## allow returns this tarpit (seconds) past loginTarpitAfter per login from
+  ## any IP: a tarpit, never a refusal, so failures cannot lock a user out.
+  loginTarpitAfter: 20
+  loginTarpitSecs: 10
   ## Every allow and report logs the fields it received.
   logRequests: true
 

@@ -13,10 +13,11 @@ API (cluster-internal only).
 
 - Deploys `powerdns/wforce:v3.2.0` with a `wforce.conf` rendered from
   `helm/files/wforce.conf`: the image's example policy, counting different
-  failed passwords per IP and per IP+login over one hour.
-- `allow` answers a tarpit past `policy.tarpitAfter` per IP+login, and a
+  failed passwords per IP, per IP+login and per login over one hour.
+- `allow` answers a tarpit past `policy.tarpitAfter` per IP+login, a
   refusal with `policy.refuseMessage` for the client past `policy.refuseAfter`
-  per IP. `report` feeds the counts from failed logins.
+  per IP, and a tarpit past `policy.loginTarpitAfter` per login from any IP.
+  `report` feeds the counts from failed logins.
 - With `policy.logRequests`, every `allow` and `report` logs every field it
   received (`login`, `remote`, `pwhash`, `protocol`, `tls`, `device_id`,
   `session_id`, `fail_type`, `success`, `policy_reject`, `attrs`): what a sender put in
@@ -53,6 +54,7 @@ auth (`Authorization: Basic base64(wforce:<password>)`).
 | `acl` | `[]` | Networks allowed to call the API; empty keeps wforce's private-range default |
 | `policy.tarpitAfter` / `policy.tarpitSecs` | `3` / `3` | Different failed passwords per IP+login before `allow` tarpits, and for how long |
 | `policy.refuseAfter` / `policy.refuseMessage` | `50` / `Too many failed logins, try again later` | Different failed passwords per IP before `allow` refuses, and the message for the client |
+| `policy.loginTarpitAfter` / `policy.loginTarpitSecs` | `20` / `10` | Different failed passwords per login, from any IP, before `allow` tarpits, and for how long |
 | `policy.logRequests` | `true` | Log every field of every `allow` and `report` |
 | `resources` | `50m/64Mi` request, `512Mi` limit | Pod sizing |
 
