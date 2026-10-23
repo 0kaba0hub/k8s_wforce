@@ -1,0 +1,38 @@
+image:
+  repository: powerdns/wforce
+  tag: v3.2.0
+  pullPolicy: IfNotPresent
+
+replicas: 1
+port: 8084
+
+## The Secret is made outside git (README). password is the HTTP API's
+## basic-auth password; key is base64 of 32 bytes, wforce's replication and
+## console key.
+existingSecret:
+  name: wforce
+  passwordKey: password
+  keyKey: key
+
+## Networks allowed to call the API; empty keeps wforce's default, the
+## private IPv4/IPv6 ranges.
+acl: []
+
+## The policy: different failed passwords counted per IP and per IP+login
+## over a one-hour window of six 10-minute slots.
+policy:
+  ## allow returns this tarpit (seconds) past tarpitAfter per IP+login.
+  tarpitAfter: 3
+  tarpitSecs: 3
+  ## allow refuses past refuseAfter per IP, with this message for the client.
+  refuseAfter: 50
+  refuseMessage: "Too many failed logins, try again later"
+  ## Every allow and report logs the fields it received.
+  logRequests: true
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    memory: 512Mi

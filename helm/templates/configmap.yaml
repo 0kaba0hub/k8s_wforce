@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels: {app: {{ .Release.Name }}}
+data:
+  wforce.conf: |
+{{ tpl (.Files.Get "files/wforce.conf") . | indent 4 }}
